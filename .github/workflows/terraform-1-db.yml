@@ -1,0 +1,47 @@
+name: 1- MS-PAGAMENTOS - Terraform - Banco de Dados
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'infrastructure/db/**'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Configurar o Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.6
+
+      # Inicializar o Terraform
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./infrastructure/db
+
+      # Validar os arquivos do Terraform
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ./infrastructure/db
+        env:
+          TF_VAR_db_username: ${{ secrets.USER_DB }}
+          TF_VAR_db_password: ${{ secrets.PASSWORD_DB }}
+
+      # Aplicar o Terraform
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        working-directory: ./infrastructure/db
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
+          TF_VAR_db_username: ${{ secrets.USER_DB }}
+          TF_VAR_db_password: ${{ secrets.PASSWORD_DB }}
