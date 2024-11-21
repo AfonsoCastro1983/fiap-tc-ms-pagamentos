@@ -1,0 +1,44 @@
+name: 2- MS-PAGAMENTOS - Terraform Deploy - ECS
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'infrastructure/ecs/**' # Monitora mudanças na pasta 'ecs' ao fazer push na branch 'main'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Configurar o Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.6 # Substitua pela versão usada
+
+      # Inicializar o Terraform
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./infrastructure/ecs
+
+      # Validar os arquivos do Terraform
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ./infrastructure/ecs
+
+      # Aplicar o Terraform
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve -var "db_user=${{ secrets.USER_DB }}" -var "db_password=${{ secrets.PASSWORD_DB }}"
+        working-directory: ./infrastructure/ecs
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+          PASSWORD_DB: ${{ secrets.PASSWORD_DB }}
+          USER_DB: ${{ secrets.USER_DB }}
