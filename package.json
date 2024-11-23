@@ -1,0 +1,61 @@
+{
+  "name": "fiap-tc-ms-produtos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "predev": "npm run swagger",
+    "prebuild": "npm run swagger",
+    "test": "jest",
+    "sonar": "node ./node_modules/sonarqube-scanner",
+    "start": "ts-node src/index.ts",
+    "swagger": "tsoa spec",
+    "typeorm": "typeorm-ts-node-commonjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AfonsoCastro1983/fiap-tc-ms-produtos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AfonsoCastro1983/fiap-tc-ms-produtos/issues"
+  },
+  "homepage": "https://github.com/AfonsoCastro1983/fiap-tc-ms-produtos#readme",
+  "devDependencies": {
+    "@aws-sdk/client-sqs": "^3.696.0",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.12.12",
+    "@types/swagger-ui-express": "^4.1.6",
+    "concurrently": "^8.2.2",
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "jest-sonar": "^0.2.16",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
+    "morgan": "^1.10.0",
+    "sonarqube-scanner": "^4.2.5",
+    "ts-jest": "^29.2.5",
+    "ts-node": "10.9.1",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@tsoa/cli": "^6.4.0",
+    "@tsoa/runtime": "^6.4.0",
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "joi": "^17.13.1",
+    "pg": "^8.4.0",
+    "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^5.0.0",
+    "tsoa": "^6.5.1",
+    "typeorm": "0.3.20"
+  }
+}
