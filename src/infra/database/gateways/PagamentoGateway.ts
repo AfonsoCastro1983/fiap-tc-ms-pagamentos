@@ -24,7 +24,7 @@ export class PagamentoGateway implements IPagamentoGateway {
     }
 
     async buscarPagamento(pedido: number): Promise<Pagamento> {
-        const pagRepository = await this.repPagamento.findOne({ where: { pedido: pedido }, relations: ["pedido"], order: { id: 'DESC' } });
+        const pagRepository = await this.repPagamento.findOne({ where: { pedido: pedido }, order: { id: 'DESC' } });
         if (!pagRepository) {
             throw new Error('Pagamento não encontrado');
         }
@@ -44,7 +44,7 @@ export class PagamentoGateway implements IPagamentoGateway {
         if (pagamento.id == 0) {
             throw new Error('Pagamento não gravado');
         }
-        const pagRepository = await this.repPagamento.findOne({ where: { id: pagamento.id }, relations: ["pedido"], order: { id: 'DESC' } });
+        const pagRepository = await this.repPagamento.findOne({ where: { id: pagamento.id }, order: { id: 'DESC' } });
         if (!pagRepository) {
             throw new Error('Pagamento não encontrado');
         }
