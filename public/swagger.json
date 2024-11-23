@@ -1,0 +1,273 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"PagamentoResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"type": "string"
+					},
+					"qrCode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"status",
+					"qrCode"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Preco": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Quantidade": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IPedidoItem": {
+				"properties": {
+					"item": {
+						"properties": {
+							"preco": {
+								"$ref": "#/components/schemas/Preco"
+							},
+							"categoria": {
+								"type": "string"
+							},
+							"descricao": {
+								"type": "string"
+							},
+							"nome": {
+								"type": "string"
+							},
+							"id": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"preco",
+							"categoria",
+							"descricao",
+							"nome",
+							"id"
+						],
+						"type": "object"
+					},
+					"quantidade": {
+						"$ref": "#/components/schemas/Quantidade"
+					},
+					"total": {
+						"$ref": "#/components/schemas/Preco"
+					}
+				},
+				"required": [
+					"item",
+					"quantidade",
+					"total"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"PagamentoRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"status": {
+						"type": "string"
+					},
+					"cliente": {
+						"properties": {
+							"cpf": {
+								"type": "string"
+							},
+							"email": {
+								"type": "string"
+							},
+							"nome": {
+								"type": "string"
+							},
+							"id": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"cpf",
+							"email",
+							"nome",
+							"id"
+						],
+						"type": "object"
+					},
+					"valorTotal": {
+						"$ref": "#/components/schemas/Preco"
+					},
+					"itens": {
+						"items": {
+							"$ref": "#/components/schemas/IPedidoItem"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"data",
+					"status",
+					"cliente",
+					"valorTotal",
+					"itens"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"WebhookResponse": {
+				"properties": {
+					"ok": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"ok"
+				],
+				"type": "object",
+				"additionalProperties": true
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "fiap-tc-ms-produtos",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/pagamento/iniciar": {
+			"post": {
+				"operationId": "IniciarPagamento",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PagamentoResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Iniciar processo de pagamento",
+				"tags": [
+					"Pagamento"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PagamentoRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/pagamento/status/{pedido}": {
+			"get": {
+				"operationId": "BuscarStatusPedido",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PagamentoResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Buscar o status de pagamento de um pedido",
+				"tags": [
+					"Pagamento"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "pedido",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/pagamento/webhook": {
+			"post": {
+				"operationId": "ReceberStatusPagamentoIntegrador",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/WebhookResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Receber confirmação de pagamento do Integrador",
+				"tags": [
+					"Pagamento"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
