@@ -42,7 +42,8 @@
     "sonarqube-scanner": "^4.2.5",
     "ts-jest": "^29.2.5",
     "ts-node": "10.9.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "uuid": "^11.0.3"
   },
   "dependencies": {
     "@tsoa/cli": "^6.4.0",

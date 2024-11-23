@@ -23,16 +23,21 @@ export class ExecutarPagamentoUseCase {
             throw new Error('Pagamento não foi criado');
         }
         this.envioFilaMensageria.envioFila(pedido.id, StatusPedido.ENVIAR_PARA_PAGAMENTO);
-        
-        const resposta = await integradorPagamentos.gerarQRCode(pedido, "Pedido Lanchonete");
-        console.log(resposta);
-        if (resposta.identificador_pedido != "") {
-            pagamento.identificadorPedido = resposta.identificador_pedido;
-            pagamento.qrCode = resposta.qrcode;
-            pagamento = await this.pagamentoGateway.atualizarPagamento(pagamento);
-            console.log('Pagamento atualizado com o qr-Code');
+
+        try {
+            const resposta = await integradorPagamentos.gerarQRCode(pedido, "Pedido Lanchonete");
+            console.log(resposta);
+            if (resposta.identificador_pedido != "") {
+                pagamento.identificadorPedido = resposta.identificador_pedido;
+                pagamento.qrCode = resposta.qrcode;
+                pagamento = await this.pagamentoGateway.atualizarPagamento(pagamento);
+                console.log('Pagamento atualizado com o qr-Code');
+            }
+            else {
+                pagamento = await this.cancelar(pagamento.pedido);
+            }
         }
-        else {
+        catch {
             pagamento = await this.cancelar(pagamento.pedido);
         }
 
@@ -46,7 +51,7 @@ export class ExecutarPagamentoUseCase {
         }
         pagamento.status = StatusPagamento.PAGO;
         await this.pagamentoGateway.atualizarPagamento(pagamento);
-        this.envioFilaMensageria.envioFila(pedido,StatusPedido.ENVIADO_PARA_A_COZINHA);
+        this.envioFilaMensageria.envioFila(pedido, StatusPedido.ENVIADO_PARA_A_COZINHA);
 
         return pagamento;
     }
@@ -60,7 +65,7 @@ export class ExecutarPagamentoUseCase {
 
         pagamento.status = StatusPagamento.CANCELADO;
         await this.pagamentoGateway.atualizarPagamento(pagamento);
-        this.envioFilaMensageria.envioFila(pedido,StatusPedido.CANCELADO);
+        this.envioFilaMensageria.envioFila(pedido, StatusPedido.CANCELADO);
 
         return pagamento;
     }
