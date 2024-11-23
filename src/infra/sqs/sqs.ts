@@ -14,13 +14,15 @@ export class filaSQS implements IEnvioFilaMensageria{
             QueueUrl: 'https://sqs.us-east-2.amazonaws.com/992382363343/lanchonete-fiap-status-pedido.fifo',
             MessageBody: JSON.stringify({'pedido': pedido, 'status': status})
         };
+
+        console.log(params);
     
         try {
             const data = await this._sqsClient.send(new SendMessageCommand(params));
             console.log("Messagem enviada corretamente:", data.MessageId);
             return true;
         } catch (err) {
-            console.error("Erro ao enviar mensagem:", err);
+            console.log("Erro ao enviar mensagem:", err);
             return false;
         }
     }
