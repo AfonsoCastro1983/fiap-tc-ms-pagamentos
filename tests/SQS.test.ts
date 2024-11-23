@@ -44,6 +44,6 @@ describe("filaSQS", () => {
 
     it("deve instanciar corretamente o cliente SQS", () => {
         expect(filaSQSInstance).toHaveProperty("_sqsClient");
-        expect(SQSClient).toHaveBeenCalledWith({ region: "us-region-2" });
+        expect(SQSClient).toHaveBeenCalledWith({ region: "us-east-2" });
     });
 });

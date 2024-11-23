@@ -1,55 +1,55 @@
 <testExecutions version="1">
+<file path="tests/Preco.test.ts">
+<testCase name="Preco Quando o objeto &#xe9; criado Deve lan&#xe7;ar um erro se o valor inicial for negativo" duration="23" />
+<testCase name="Preco Quando o objeto &#xe9; criado Deve criar o objeto corretamente se o valor inicial for positivo" duration="1" />
+<testCase name="Preco Quando somar dois pre&#xe7;os Deve retornar um novo objeto com a soma dos valores" duration="1" />
+<testCase name="Preco Quando subtrair dois pre&#xe7;os Deve retornar um novo objeto com o valor restante" duration="1" />
+<testCase name="Preco Quando subtrair dois pre&#xe7;os Deve lan&#xe7;ar um erro se o valor a subtrair for maior que o atual" duration="2" />
+<testCase name="Preco Quando chamar o m&#xe9;todo toString Deve retornar uma string formatada corretamente" duration="1" />
+</file>
 <file path="tests/Quantidade.test.ts">
 <testCase name="Quantidade deve criar uma inst&#xe2;ncia de Quantidade com valor v&#xe1;lido" duration="6" />
-<testCase name="Quantidade deve lan&#xe7;ar erro ao tentar criar uma Quantidade com valor menor ou igual a zero" duration="9" />
+<testCase name="Quantidade deve lan&#xe7;ar erro ao tentar criar uma Quantidade com valor menor ou igual a zero" duration="12" />
 <testCase name="Quantidade deve alterar a quantidade para um valor v&#xe1;lido" duration="1" />
 <testCase name="Quantidade deve lan&#xe7;ar erro ao tentar alterar a quantidade para um valor menor ou igual a zero" duration="2" />
-<testCase name="Quantidade deve retornar o valor correto da quantidade" duration="0" />
-</file>
-<file path="tests/Preco.test.ts">
-<testCase name="Preco Quando o objeto &#xe9; criado Deve lan&#xe7;ar um erro se o valor inicial for negativo" duration="20" />
-<testCase name="Preco Quando o objeto &#xe9; criado Deve criar o objeto corretamente se o valor inicial for positivo" duration="1" />
-<testCase name="Preco Quando somar dois pre&#xe7;os Deve retornar um novo objeto com a soma dos valores" duration="2" />
-<testCase name="Preco Quando subtrair dois pre&#xe7;os Deve retornar um novo objeto com o valor restante" duration="0" />
-<testCase name="Preco Quando subtrair dois pre&#xe7;os Deve lan&#xe7;ar um erro se o valor a subtrair for maior que o atual" duration="2" />
-<testCase name="Preco Quando chamar o m&#xe9;todo toString Deve retornar uma string formatada corretamente" duration="0" />
+<testCase name="Quantidade deve retornar o valor correto da quantidade" duration="1" />
 </file>
 <file path="tests/ExecutarPagamentoUseCase.test.ts">
-<testCase name="ExecutarPagamentoUseCase deve iniciar um pagamento com sucesso" duration="36" />
-<testCase name="ExecutarPagamentoUseCase deve iniciar um pagamento, mas n&#xe3;o conseguir gerar qr-code" duration="4" />
-<testCase name="ExecutarPagamentoUseCase deve marcar um pagamento como pago com sucesso" duration="2" />
-<testCase name="ExecutarPagamentoUseCase deve dar erro ao efetivar um pagamento n&#xe3;o encontrado" duration="15" />
-<testCase name="ExecutarPagamentoUseCase deve cancelar um pagamento com sucesso" duration="5" />
-<testCase name="ExecutarPagamentoUseCase deve dar erro ao cancelar um pagamento n&#xe3;o encontrado" duration="4" />
-<testCase name="ExecutarPagamentoUseCase deve consultar o status de um pagamento com sucesso" duration="1" />
-<testCase name="ExecutarPagamentoUseCase deve consultar um pedido no integrador com sucesso" duration="1" />
-</file>
-<file path="tests/SQS.test.ts">
-<testCase name="filaSQS deve enviar uma mensagem para a fila com sucesso" duration="25" />
-<testCase name="filaSQS deve retornar false ao falhar no envio para a fila" duration="8" />
-<testCase name="filaSQS deve instanciar corretamente o cliente SQS" duration="5" />
-</file>
-<file path="tests/PagamentoGateway.test.ts">
-<testCase name="PagamentoGateway deve buscar um pagamento com sucesso" duration="16" />
-<testCase name="PagamentoGateway deve lan&#xe7;ar erro se pagamento n&#xe3;o for encontrado" duration="6" />
-<testCase name="PagamentoGateway deve atualizar um pagamento com sucesso" duration="3" />
-<testCase name="PagamentoGateway deve lan&#xe7;ar erro se pagamento n&#xe3;o for encontrado para atualizar" duration="1" />
-<testCase name="PagamentoGateway deve lan&#xe7;ar erro se pagamento n&#xe3;o possuir id preenchido" duration="8" />
-<testCase name="PagamentoGateway deve buscar um c&#xf3;digo do integrador com sucesso" duration="3" />
-<testCase name="PagamentoGateway deve lan&#xe7;ar erro se c&#xf3;digo de integrador n&#xe3;o for encontrado" duration="1" />
-<testCase name="PagamentoGateway deve iniciar um pagamento com sucesso" duration="6" />
-</file>
-<file path="tests/PagamentoController.test.ts">
-<testCase name="PagamentoController deve criar um pagamento com sucesso" duration="10" />
-<testCase name="PagamentoController deve consultar o status de um pagamento com sucesso" duration="1" />
-<testCase name="PagamentoController deve receber a resposta de um integrador aprovando a operacao" duration="2" />
-<testCase name="PagamentoController deve receber a resposta de um integrador rejeitando a operacao" duration="8" />
+<testCase name="ExecutarPagamentoUseCase deve iniciar um pagamento com sucesso" duration="60" />
+<testCase name="ExecutarPagamentoUseCase deve iniciar um pagamento, mas n&#xe3;o conseguir gerar qr-code" duration="11" />
+<testCase name="ExecutarPagamentoUseCase deve marcar um pagamento como pago com sucesso" duration="4" />
+<testCase name="ExecutarPagamentoUseCase deve dar erro ao efetivar um pagamento n&#xe3;o encontrado" duration="21" />
+<testCase name="ExecutarPagamentoUseCase deve cancelar um pagamento com sucesso" duration="7" />
+<testCase name="ExecutarPagamentoUseCase deve dar erro ao cancelar um pagamento n&#xe3;o encontrado" duration="6" />
+<testCase name="ExecutarPagamentoUseCase deve consultar o status de um pagamento com sucesso" duration="5" />
+<testCase name="ExecutarPagamentoUseCase deve consultar um pedido no integrador com sucesso" duration="3" />
 </file>
 <file path="tests/MercadoPagoService.test.ts">
-<testCase name="MercadoPagoService gerarQRCode deve gerar um QR Code com sucesso" duration="16" />
-<testCase name="MercadoPagoService gerarQRCode deve lan&#xe7;ar erro ao falhar na gera&#xe7;&#xe3;o do QR Code" duration="7" />
-<testCase name="MercadoPagoService tratarRetorno deve processar o retorno do webhook com sucesso" duration="2" />
-<testCase name="MercadoPagoService tratarRetorno deve retornar valores padr&#xe3;o ao falhar no processamento do webhook" duration="1" />
-<testCase name="MercadoPagoService tratarRetorno deve lan&#xe7;ar erro ao retornar resposta n&#xe3;o mapeada" duration="1" />
+<testCase name="MercadoPagoService gerarQRCode deve gerar um QR Code com sucesso" duration="60" />
+<testCase name="MercadoPagoService gerarQRCode deve lan&#xe7;ar erro ao falhar na gera&#xe7;&#xe3;o do QR Code" duration="29" />
+<testCase name="MercadoPagoService tratarRetorno deve processar o retorno do webhook com sucesso" duration="5" />
+<testCase name="MercadoPagoService tratarRetorno deve retornar valores padr&#xe3;o ao falhar no processamento do webhook" duration="3" />
+<testCase name="MercadoPagoService tratarRetorno deve lan&#xe7;ar erro ao retornar resposta n&#xe3;o mapeada" duration="4" />
+</file>
+<file path="tests/PagamentoGateway.test.ts">
+<testCase name="PagamentoGateway deve buscar um pagamento com sucesso" duration="28" />
+<testCase name="PagamentoGateway deve lan&#xe7;ar erro se pagamento n&#xe3;o for encontrado" duration="16" />
+<testCase name="PagamentoGateway deve atualizar um pagamento com sucesso" duration="5" />
+<testCase name="PagamentoGateway deve lan&#xe7;ar erro se pagamento n&#xe3;o for encontrado para atualizar" duration="3" />
+<testCase name="PagamentoGateway deve lan&#xe7;ar erro se pagamento n&#xe3;o possuir id preenchido" duration="8" />
+<testCase name="PagamentoGateway deve buscar um c&#xf3;digo do integrador com sucesso" duration="2" />
+<testCase name="PagamentoGateway deve lan&#xe7;ar erro se c&#xf3;digo de integrador n&#xe3;o for encontrado" duration="1" />
+<testCase name="PagamentoGateway deve iniciar um pagamento com sucesso" duration="11" />
+</file>
+<file path="tests/PagamentoController.test.ts">
+<testCase name="PagamentoController deve criar um pagamento com sucesso" duration="22" />
+<testCase name="PagamentoController deve consultar o status de um pagamento com sucesso" duration="1" />
+<testCase name="PagamentoController deve receber a resposta de um integrador aprovando a operacao" duration="3" />
+<testCase name="PagamentoController deve receber a resposta de um integrador rejeitando a operacao" duration="1" />
+</file>
+<file path="tests/SQS.test.ts">
+<testCase name="filaSQS deve enviar uma mensagem para a fila com sucesso" duration="9" />
+<testCase name="filaSQS deve retornar false ao falhar no envio para a fila" duration="5" />
+<testCase name="filaSQS deve instanciar corretamente o cliente SQS" duration="1" />
 </file>
 </testExecutions>
