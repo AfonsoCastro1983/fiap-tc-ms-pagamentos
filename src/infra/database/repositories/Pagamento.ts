@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { StatusPagamento } from '../../../shared/enums/StatusPagamento';
 
 @Entity()
@@ -16,7 +16,7 @@ export class PagamentoRepository {
     status!: StatusPagamento;
 
     @Column()
-    pedido!: number;
+    pedido!: string;
 
     @Column()
     identificador_pedido!: string;

@@ -31,7 +31,7 @@ describe("MercadoPagoService", () => {
     describe("gerarQRCode", () => {
         it("deve gerar um QR Code com sucesso", async () => {
             const pedido: IPedido = {
-                id: 1,
+                id: '1',
                 data: new Date(),
                 status: "ENVIAR_PARA_PAGAMENTO",
                 cliente: {
@@ -82,7 +82,7 @@ describe("MercadoPagoService", () => {
 
         it("deve lançar erro ao falhar na geração do QR Code", async () => {
             const pedido: IPedido = {
-                id: 1,
+                id: '1',
                 data: new Date(),
                 status: "ENVIAR_PARA_PAGAMENTO",
                 cliente: {

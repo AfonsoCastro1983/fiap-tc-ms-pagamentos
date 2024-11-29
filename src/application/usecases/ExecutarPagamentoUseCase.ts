@@ -44,7 +44,7 @@ export class ExecutarPagamentoUseCase {
         return pagamento;
     }
 
-    async pago(pedido: number): Promise<Pagamento> {
+    async pago(pedido: string): Promise<Pagamento> {
         const pagamento = await this.pagamentoGateway.buscarPagamento(pedido);
         if (!pagamento) {
             throw new Error('Pagamento não encontrado');
@@ -56,7 +56,7 @@ export class ExecutarPagamentoUseCase {
         return pagamento;
     }
 
-    async cancelar(pedido: number): Promise<Pagamento> {
+    async cancelar(pedido: string): Promise<Pagamento> {
         console.log('ExecutarPagamentoUseCase.cancelar()');
         const pagamento = await this.pagamentoGateway.buscarPagamento(pedido);
         if (!pagamento) {
@@ -70,7 +70,7 @@ export class ExecutarPagamentoUseCase {
         return pagamento;
     }
 
-    async consultaStatus(nro_pedido: number): Promise<IPagamento> {
+    async consultaStatus(nro_pedido: string): Promise<IPagamento> {
         const pagamento = await this.pagamentoGateway.buscarPagamento(nro_pedido);
         return pagamento;
     }

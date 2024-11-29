@@ -86,8 +86,7 @@
 			"PagamentoRequest": {
 				"properties": {
 					"id": {
-						"type": "number",
-						"format": "double"
+						"type": "string"
 					},
 					"data": {
 						"type": "string",
@@ -134,7 +133,6 @@
 					"id",
 					"data",
 					"status",
-					"cliente",
 					"valorTotal",
 					"itens"
 				],
@@ -224,8 +222,7 @@
 						"name": "pedido",
 						"required": true,
 						"schema": {
-							"format": "double",
-							"type": "number"
+							"type": "string"
 						}
 					}
 				]

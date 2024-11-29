@@ -6,7 +6,7 @@ export interface IPagamento {
     valor: Preco;
     status: StatusPagamento;
     dataCriacao: Date;
-    pedido: number;
+    pedido: string;
     identificadorPedido: string;
     qrCode: string;
 }

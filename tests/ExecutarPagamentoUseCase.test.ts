@@ -8,10 +8,10 @@ import { Preco } from '../src/shared/valueobjects/Preco';
 import { Quantidade } from '../src/shared/valueobjects/Quantidade';
 import { Pagamento } from '../src/domain/entities/Pagamento';
 
-const pagamento: Pagamento = new Pagamento(123,1,new Preco(10));
+const pagamento: Pagamento = new Pagamento(123,'1',new Preco(10));
 
 const pedido: IPedido = {
-    id: 1,
+    id: '1',
     data: new Date(),
     status: 'ENVIAR_PARA_PAGAMENTO',
     cliente: {
@@ -115,10 +115,10 @@ describe('ExecutarPagamentoUseCase', () => {
         mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
         mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
     
-        const resultado = await executarPagamentoUseCase.pago(pagamento.id);
+        const resultado = await executarPagamentoUseCase.pago(pagamento.pedido);
     
         expect(resultado).toHaveProperty('status', StatusPagamento.PAGO);
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.id);
+        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
         expect(mockPagamentoGateway.atualizarPagamento).toHaveBeenCalledWith(mockPagamento);
     });
 
@@ -128,11 +128,11 @@ describe('ExecutarPagamentoUseCase', () => {
     
         mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
     
-        await expect(executarPagamentoUseCase.pago(pagamento.id))
+        await expect(executarPagamentoUseCase.pago(pagamento.pedido))
         .rejects
         .toThrow('Pagamento não encontrado');
 
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.id);
+        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
         expect(mockPagamentoGateway.atualizarPagamento).not.toHaveBeenCalled();
     });
     
@@ -143,10 +143,10 @@ describe('ExecutarPagamentoUseCase', () => {
         mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
         mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
     
-        const resultado = await executarPagamentoUseCase.cancelar(pagamento.id);
+        const resultado = await executarPagamentoUseCase.cancelar(pagamento.pedido);
     
         expect(resultado).toHaveProperty('status', StatusPagamento.CANCELADO);
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.id);
+        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
         expect(mockPagamentoGateway.atualizarPagamento).toHaveBeenCalledWith(mockPagamento);
     });
 
@@ -156,11 +156,11 @@ describe('ExecutarPagamentoUseCase', () => {
     
         mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
     
-        await expect(executarPagamentoUseCase.cancelar(pagamento.id))
+        await expect(executarPagamentoUseCase.cancelar(pagamento.pedido))
         .rejects
         .toThrow('Pagamento não encontrado');
 
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.id);
+        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
         expect(mockPagamentoGateway.atualizarPagamento).not.toHaveBeenCalled();
     });
 
@@ -170,10 +170,10 @@ describe('ExecutarPagamentoUseCase', () => {
     
         mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
     
-        const resultado = await executarPagamentoUseCase.consultaStatus(pagamento.id);
+        const resultado = await executarPagamentoUseCase.consultaStatus(pagamento.pedido);
     
         expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.id);
+        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
     });
 
     it('deve consultar um pedido no integrador com sucesso', async () => {

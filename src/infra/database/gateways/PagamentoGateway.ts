@@ -23,7 +23,7 @@ export class PagamentoGateway implements IPagamentoGateway {
         return pagamento;
     }
 
-    async buscarPagamento(pedido: number): Promise<Pagamento> {
+    async buscarPagamento(pedido: string): Promise<Pagamento> {
         const pagRepository = await this.repPagamento.findOne({ where: { pedido: pedido }, order: { id: 'DESC' } });
         if (!pagRepository) {
             throw new Error('Pagamento não encontrado');

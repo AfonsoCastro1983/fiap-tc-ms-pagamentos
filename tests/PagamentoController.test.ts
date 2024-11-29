@@ -10,10 +10,10 @@ import { ExecutarPagamentoUseCase } from '../src/application/usecases/ExecutarPa
 import { Pagamento } from '../src/domain/entities/Pagamento';
 import { ITransacaoMercadoPago } from '../src/infra/mercadopago/MercadoPagoService'
 
-const pagamento: Pagamento = new Pagamento(123,1,new Preco(10));
+const pagamento: Pagamento = new Pagamento(123,'1',new Preco(10));
 
 const pedido: IPedido = {
-    id: 1,
+    id: '1',
     data: new Date(),
     status: 'ENVIAR_PARA_PAGAMENTO',
     cliente: {
@@ -133,7 +133,7 @@ describe('PagamentoController', () => {
     });
 
     it('deve consultar o status de um pagamento com sucesso', async () => {
-        const mockPagamentoId = 123;
+        const mockPagamentoId = '1';
         
         let mockResponseUseCase: Pagamento = pagamento;
         mockResponseUseCase.identificadorPedido = mockQRCodeResponse.identificador_pedido;

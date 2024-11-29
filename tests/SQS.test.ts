@@ -18,7 +18,7 @@ describe("filaSQS", () => {
     });
 
     it("deve enviar uma mensagem para a fila com sucesso", async () => {
-        const pedido = 123;
+        const pedido = '123';
         const status = StatusPedido.ENVIAR_PARA_PAGAMENTO;
 
         // Simula uma resposta bem-sucedida do SQS
@@ -30,7 +30,7 @@ describe("filaSQS", () => {
     });
 
     it("deve retornar false ao falhar no envio para a fila", async () => {
-        const pedido = 123;
+        const pedido = '123';
         const status = StatusPedido.ENVIAR_PARA_PAGAMENTO;
 
         // Simula uma falha no envio

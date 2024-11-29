@@ -5,14 +5,14 @@ import { IPagamento } from "../../application/interfaces/IPagamento";
 
 export class Pagamento implements IPagamento {
   private _id: number;
-  private _pedido: number;
+  private _pedido: string;
   private _valor: Preco;
   private _status: StatusPagamento;
   private _dataCriacao: Date;
   private _identificador_pedido: string;
   private _qrCodeCodigo: string;
 
-  constructor(id: number, pedido: number,valor: Preco) {
+  constructor(id: number, pedido: string,valor: Preco) {
     this._id = id;
     this._pedido = pedido;
     this._valor = valor;
@@ -42,7 +42,7 @@ export class Pagamento implements IPagamento {
     return this._dataCriacao;
   }
 
-  get pedido(): number {
+  get pedido(): string {
     return this._pedido;
   }
 

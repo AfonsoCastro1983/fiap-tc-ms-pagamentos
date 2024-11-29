@@ -10,7 +10,7 @@ export class filaSQS implements IEnvioFilaMensageria{
         this._sqsClient = new SQSClient({ region: "us-east-2" });
     }
 
-    public async envioFila(pedido: number, status: StatusPedido): Promise<boolean> {
+    public async envioFila(pedido: string, status: StatusPedido): Promise<boolean> {
         const params = {
             QueueUrl: 'https://sqs.us-east-2.amazonaws.com/992382363343/lanchonete-fiap-status-pedido.fifo',
             MessageBody: JSON.stringify({'pedido': pedido, 'status': status}),
