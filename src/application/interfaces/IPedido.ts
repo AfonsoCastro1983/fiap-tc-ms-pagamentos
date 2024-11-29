@@ -2,10 +2,10 @@ import { Preco } from "../../shared/valueobjects/Preco";
 import { Quantidade } from "../../shared/valueobjects/Quantidade";
 
 export interface IPedido {
-    id: number;
+    id: string;
     data: Date;
     status: string;
-    cliente: {
+    cliente?: {
         id: number;
         nome: string;
         email: string;

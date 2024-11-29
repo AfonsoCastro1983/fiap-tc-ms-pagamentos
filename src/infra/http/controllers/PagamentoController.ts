@@ -44,7 +44,7 @@ export default class PagamentoController {
      * Buscar o status de pagamento de um pedido
      */
     @Get("/status/:pedido")
-    public async buscarStatusPedido(@Path() pedido: number): Promise<PagamentoResponse> {
+    public async buscarStatusPedido(@Path() pedido: string): Promise<PagamentoResponse> {
         const pagamento = await this.pagamentoUseCase.consultaStatus(pedido);
         return {
             id: pagamento.id,

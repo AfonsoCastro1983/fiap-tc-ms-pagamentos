@@ -31,7 +31,7 @@ describe('PagamentoGateway', () => {
     it('deve buscar um pagamento com sucesso', async () => {
         const mockPagamentoRepository = {
             id: 1,
-            pedido: 123,
+            pedido: '123',
             valor: 100,
             status: StatusPagamento.AGUARDANDO_RESPOSTA,
             identificador_pedido: '123ABC',
@@ -40,11 +40,10 @@ describe('PagamentoGateway', () => {
 
         mockRepository.findOne.mockResolvedValue(mockPagamentoRepository);
 
-        const resultado = await pagamentoGateway.buscarPagamento(123);
+        const resultado = await pagamentoGateway.buscarPagamento('123');
 
         expect(mockRepository.findOne).toHaveBeenCalledWith({
-            where: { pedido: 123 },
-            relations: ['pedido'],
+            where: { pedido: '123' },
             order: { id: 'DESC' },
         });
         expect(resultado).toBeInstanceOf(Pagamento);
@@ -55,20 +54,20 @@ describe('PagamentoGateway', () => {
     it('deve lançar erro se pagamento não for encontrado', async () => {
         mockRepository.findOne.mockResolvedValue(null);
 
-        await expect(pagamentoGateway.buscarPagamento(123)).rejects.toThrow('Pagamento não encontrado');
+        await expect(pagamentoGateway.buscarPagamento('123')).rejects.toThrow('Pagamento não encontrado');
     });
 
     it('deve atualizar um pagamento com sucesso', async () => {
         const mockPagamentoRepository = {
             id: 1,
-            pedido: 123,
+            pedido: '123',
             valor: 100,
             status: StatusPagamento.AGUARDANDO_RESPOSTA,
             identificador_pedido: '123ABC',
             qrcode: 'qrcode123',
         };
 
-        const mockPagamento = new Pagamento(1, 123, new Preco(150));
+        const mockPagamento = new Pagamento(1, '123', new Preco(150));
         mockPagamento.status = StatusPagamento.PAGO;
         mockPagamento.identificadorPedido = '123XYZ';
         mockPagamento.qrCode = 'qrcode456';
@@ -86,7 +85,6 @@ describe('PagamentoGateway', () => {
 
         expect(mockRepository.findOne).toHaveBeenCalledWith({
             where: { id: 1 },
-            relations: ['pedido'],
             order: { id: 'DESC' },
         });
         expect(mockRepository.save).toHaveBeenCalledWith(expect.objectContaining({
@@ -101,7 +99,7 @@ describe('PagamentoGateway', () => {
     });
 
     it('deve lançar erro se pagamento não for encontrado para atualizar', async () => {
-        const mockPagamento = new Pagamento(1, 123, new Preco(150));
+        const mockPagamento = new Pagamento(1, '123', new Preco(150));
 
         mockRepository.findOne.mockResolvedValue(null);
 
@@ -109,7 +107,7 @@ describe('PagamentoGateway', () => {
     });
 
     it('deve lançar erro se pagamento não possuir id preenchido', async () => {
-        const mockPagamento = new Pagamento(0, 123, new Preco(150));
+        const mockPagamento = new Pagamento(0, '123', new Preco(150));
 
         mockRepository.findOne.mockResolvedValue(null);
 
@@ -119,7 +117,7 @@ describe('PagamentoGateway', () => {
     it('deve buscar um código do integrador com sucesso', async () => {
         const mockPagamentoRepository = {
             id: 1,
-            pedido: 123,
+            pedido: '123',
             valor: 100,
             status: StatusPagamento.AGUARDANDO_RESPOSTA,
             identificador_pedido: '123ABC',
@@ -146,7 +144,7 @@ describe('PagamentoGateway', () => {
 
     it('deve iniciar um pagamento com sucesso', async () => {
         const mockPedido: IPedido = {
-            id: 123,
+            id: '123',
             data: new Date(),
             status: 'ENVIAR_PARA_PAGAMENTO',
             cliente: { id: 1, nome: 'Cliente Teste', email: 'teste@email.com', cpf: '12345678900' },
@@ -156,7 +154,7 @@ describe('PagamentoGateway', () => {
 
         const mockPagamentoRepository = {
             id: 1,
-            pedido: 123,
+            pedido: '123',
             valor: 100,
             status: StatusPagamento.AGUARDANDO_RESPOSTA,
             identificador_pedido: '',
@@ -168,7 +166,7 @@ describe('PagamentoGateway', () => {
         const resultado = await pagamentoGateway.iniciarPagamento(mockPedido);
 
         expect(mockRepository.save).toHaveBeenCalledWith(expect.objectContaining({
-            pedido: 123,
+            pedido: '123',
             valor: 100,
             status: StatusPagamento.AGUARDANDO_RESPOSTA,
         }));

@@ -45,7 +45,7 @@ router.post("/pagamento/webhook", async (req, res) => {
 router.get("/pagamento/status/:pedido", async (req, res) => {
     try {
         const controller = new PagamentoController(new PagamentoGateway(), new MercadoPagoService(req,'pagamento/webhook'), new filaSQS());
-        const resposta = await controller.buscarStatusPedido(Number(req.params.pedido));
+        const resposta = await controller.buscarStatusPedido(req.params.pedido);
 
         return res.status(200).json(resposta);
     }
