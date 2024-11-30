@@ -8,8 +8,8 @@ import { IPagamentoGateway } from "../interfaces/IPagamentoGateway";
 import { IPedido } from "../interfaces/IPedido";
 
 export class ExecutarPagamentoUseCase {
-    private pagamentoGateway: IPagamentoGateway;
-    private envioFilaMensageria: IEnvioFilaMensageria;
+    private readonly pagamentoGateway: IPagamentoGateway;
+    private readonly envioFilaMensageria: IEnvioFilaMensageria;
 
     constructor(pagamentoGateway: IPagamentoGateway, filaMensageria: IEnvioFilaMensageria) {
         this.pagamentoGateway = pagamentoGateway;

@@ -3,7 +3,7 @@ import { IEnvioFilaMensageria } from "../../application/interfaces/IEnvioFilaMen
 import { StatusPedido } from "../../shared/enums/StatusPedido";
 import { v4 as uuidv4 } from 'uuid';
 
-export class filaSQS implements IEnvioFilaMensageria{
+export class FilaSQS implements IEnvioFilaMensageria{
     private _sqsClient: SQSClient;
     
     constructor () {

@@ -1,12 +1,12 @@
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
-import { filaSQS } from '../src/infra/sqs/sqs';
+import { FilaSQS as FilaSQS } from '../src/infra/sqs/sqs';
 import { StatusPedido } from "../src/shared/enums/StatusPedido";
 
 jest.mock("@aws-sdk/client-sqs");
 
 describe("filaSQS", () => {
     let mockSend: jest.Mock;
-    let filaSQSInstance: filaSQS;
+    let filaSQSInstance: FilaSQS;
 
     beforeEach(() => {
         mockSend = jest.fn();
@@ -14,7 +14,7 @@ describe("filaSQS", () => {
             send: mockSend,
         }));
 
-        filaSQSInstance = new filaSQS();
+        filaSQSInstance = new FilaSQS();
     });
 
     it("deve enviar uma mensagem para a fila com sucesso", async () => {

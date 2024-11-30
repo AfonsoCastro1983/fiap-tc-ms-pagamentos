@@ -8,7 +8,7 @@ import { Preco } from '../src/shared/valueobjects/Preco';
 import { Quantidade } from '../src/shared/valueobjects/Quantidade';
 import { Pagamento } from '../src/domain/entities/Pagamento';
 
-const pagamento: Pagamento = new Pagamento(123,'1',new Preco(10));
+const pagamento: Pagamento = new Pagamento(123, '1', new Preco(10));
 
 const pedido: IPedido = {
     id: '1',
@@ -36,7 +36,7 @@ const pedido: IPedido = {
     ],
 };
 
-describe('ExecutarPagamentoUseCase', () => {
+describe('Executar pagamentos', () => {
     let executarPagamentoUseCase: ExecutarPagamentoUseCase;
     let mockPagamentoGateway: jest.Mocked<IPagamentoGateway>;
     let mockEnvioFilaMensageria: jest.Mocked<IEnvioFilaMensageria>;
@@ -62,132 +62,150 @@ describe('ExecutarPagamentoUseCase', () => {
         executarPagamentoUseCase = new ExecutarPagamentoUseCase(mockPagamentoGateway, mockEnvioFilaMensageria);
     });
 
-    it('deve iniciar um pagamento com sucesso', async () => {
-        const mockQRCodeResponse = {
-            identificador_pedido: '1234567897895464546',
-            qrcode: 'qrcode321321354564897987',
-        };
+    describe("Cenário: Iniciar um pagamento com sucesso", () => {
+        it("DADO um pedido válido, QUANDO eu iniciar o pagamento, ENTÃO o pagamento deve ser iniciado com sucesso e retornar o QR Code", async () => {
+            const mockQRCodeResponse = {
+                identificador_pedido: '1234567897895464546',
+                qrcode: 'qrcode321321354564897987',
+            };
 
-        let mockPagamento: Pagamento = pagamento;
-        mockPagamento.identificadorPedido = mockQRCodeResponse.identificador_pedido;
-        mockPagamento.qrCode = mockQRCodeResponse.qrcode;
+            let mockPagamento: Pagamento = pagamento;
+            mockPagamento.identificadorPedido = mockQRCodeResponse.identificador_pedido;
+            mockPagamento.qrCode = mockQRCodeResponse.qrcode;
 
-        mockIntegradorPagamentos.gerarQRCode.mockResolvedValue(mockQRCodeResponse);
-        mockPagamentoGateway.iniciarPagamento.mockResolvedValue(pagamento);
-        mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
+            mockIntegradorPagamentos.gerarQRCode.mockResolvedValue(mockQRCodeResponse);
+            mockPagamentoGateway.iniciarPagamento.mockResolvedValue(pagamento);
+            mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
 
-        const resultado = await executarPagamentoUseCase.iniciar(pedido, mockIntegradorPagamentos);
+            const resultado = await executarPagamentoUseCase.iniciar(pedido, mockIntegradorPagamentos);
 
-        console.log(resultado);
+            console.log(resultado);
 
-        expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
-        expect(resultado.identificadorPedido).toBe(mockQRCodeResponse.identificador_pedido);
+            expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
+            expect(resultado.identificadorPedido).toBe(mockQRCodeResponse.identificador_pedido);
+        });
     });
 
-    it('deve iniciar um pagamento, mas não conseguir gerar qr-code', async() => {
-        const mockQRCodeResponse = {
-            identificador_pedido: '',
-            qrcode: '',
-        };
+    describe("Cenário: Iniciar um pagamento e não conseguir gerar o QR Code", () => {
+        it("DADO um pedido válido, QUANDO eu tentar iniciar o pagamento e falhar ao gerar o QR Code, ENTÃO o pagamento deve ser cancelado", async () => {
 
-        let mockPagamento: Pagamento = pagamento;
-        mockPagamento.identificadorPedido = mockQRCodeResponse.identificador_pedido;
-        mockPagamento.qrCode = mockQRCodeResponse.qrcode;
-        mockPagamento.status = StatusPagamento.CANCELADO;
+            const mockQRCodeResponse = {
+                identificador_pedido: '',
+                qrcode: '',
+            };
 
-        mockIntegradorPagamentos.gerarQRCode.mockResolvedValue(mockQRCodeResponse);
-        mockPagamentoGateway.iniciarPagamento.mockResolvedValueOnce(pagamento);
-        mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
-        mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
+            let mockPagamento: Pagamento = pagamento;
+            mockPagamento.identificadorPedido = mockQRCodeResponse.identificador_pedido;
+            mockPagamento.qrCode = mockQRCodeResponse.qrcode;
+            mockPagamento.status = StatusPagamento.CANCELADO;
 
-        const resultado = await executarPagamentoUseCase.iniciar(pedido, mockIntegradorPagamentos);
+            mockIntegradorPagamentos.gerarQRCode.mockResolvedValue(mockQRCodeResponse);
+            mockPagamentoGateway.iniciarPagamento.mockResolvedValueOnce(pagamento);
+            mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
+            mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
 
-        console.log(resultado);
+            const resultado = await executarPagamentoUseCase.iniciar(pedido, mockIntegradorPagamentos);
 
-        expect(resultado).toHaveProperty('status', StatusPagamento.CANCELADO);
-        expect(resultado.identificadorPedido).toBe(mockQRCodeResponse.identificador_pedido);
+            console.log(resultado);
+
+            expect(resultado).toHaveProperty('status', StatusPagamento.CANCELADO);
+            expect(resultado.identificadorPedido).toBe(mockQRCodeResponse.identificador_pedido);
+        });
     });
 
-    it('deve marcar um pagamento como pago com sucesso', async () => {
-        const mockPagamento: Pagamento = pagamento;
-        mockPagamento.status = StatusPagamento.PAGO;
-    
-        mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
-        mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
-    
-        const resultado = await executarPagamentoUseCase.pago(pagamento.pedido);
-    
-        expect(resultado).toHaveProperty('status', StatusPagamento.PAGO);
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
-        expect(mockPagamentoGateway.atualizarPagamento).toHaveBeenCalledWith(mockPagamento);
+    describe("Cenário: Marcar um pagamento como pago com sucesso", () => {
+        it("DADO um pagamento em processamento, QUANDO eu confirmá-lo como pago, ENTÃO o status do pagamento deve ser atualizado para PAGO", async () => {
+
+            const mockPagamento: Pagamento = pagamento;
+            mockPagamento.status = StatusPagamento.PAGO;
+
+            mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
+            mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
+
+            const resultado = await executarPagamentoUseCase.pago(pagamento.pedido);
+
+            expect(resultado).toHaveProperty('status', StatusPagamento.PAGO);
+            expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
+            expect(mockPagamentoGateway.atualizarPagamento).toHaveBeenCalledWith(mockPagamento);
+        });
     });
 
-    it('deve dar erro ao efetivar um pagamento não encontrado', async () => {
-        const mockPagamento: Pagamento = pagamento;
-        mockPagamento.status = StatusPagamento.CANCELADO;
-    
-        mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
-    
-        await expect(executarPagamentoUseCase.pago(pagamento.pedido))
-        .rejects
-        .toThrow('Pagamento não encontrado');
+    describe("Cenário: Tentar efetivar um pagamento não encontrado", () => {
+        it("DADO um pagamento inexistente, QUANDO eu tentar confirmá-lo como pago, ENTÃO deve lançar um erro dizendo 'Pagamento não encontrado'", async () => {
+            const mockPagamento: Pagamento = pagamento;
+            mockPagamento.status = StatusPagamento.CANCELADO;
 
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
-        expect(mockPagamentoGateway.atualizarPagamento).not.toHaveBeenCalled();
-    });
-    
-    it('deve cancelar um pagamento com sucesso', async () => {
-        const mockPagamento: Pagamento = pagamento;
-        mockPagamento.status = StatusPagamento.CANCELADO;
-    
-        mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
-        mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
-    
-        const resultado = await executarPagamentoUseCase.cancelar(pagamento.pedido);
-    
-        expect(resultado).toHaveProperty('status', StatusPagamento.CANCELADO);
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
-        expect(mockPagamentoGateway.atualizarPagamento).toHaveBeenCalledWith(mockPagamento);
+            mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
+
+            await expect(executarPagamentoUseCase.pago(pagamento.pedido))
+                .rejects
+                .toThrow('Pagamento não encontrado');
+
+            expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
+            expect(mockPagamentoGateway.atualizarPagamento).not.toHaveBeenCalled();
+        });
     });
 
-    it('deve dar erro ao cancelar um pagamento não encontrado', async () => {
-        const mockPagamento: Pagamento = pagamento;
-        mockPagamento.status = StatusPagamento.CANCELADO;
-    
-        mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
-    
-        await expect(executarPagamentoUseCase.cancelar(pagamento.pedido))
-        .rejects
-        .toThrow('Pagamento não encontrado');
+    describe("Cenário: Cancelar um pagamento com sucesso", () => {
+        it("DADO um pagamento em processamento, QUANDO eu cancelar o pagamento, ENTÃO o status do pagamento deve ser atualizado para CANCELADO", async () => {
+            const mockPagamento: Pagamento = pagamento;
+            mockPagamento.status = StatusPagamento.CANCELADO;
 
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
-        expect(mockPagamentoGateway.atualizarPagamento).not.toHaveBeenCalled();
+            mockPagamentoGateway.buscarPagamento.mockResolvedValue(pagamento);
+            mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
+
+            const resultado = await executarPagamentoUseCase.cancelar(pagamento.pedido);
+
+            expect(resultado).toHaveProperty('status', StatusPagamento.CANCELADO);
+            expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
+            expect(mockPagamentoGateway.atualizarPagamento).toHaveBeenCalledWith(mockPagamento);
+        });
     });
 
-    it('deve consultar o status de um pagamento com sucesso', async () => {
-        const mockPagamento: Pagamento = pagamento;
-        mockPagamento.status = StatusPagamento.AGUARDANDO_RESPOSTA;
-    
-        mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
-    
-        const resultado = await executarPagamentoUseCase.consultaStatus(pagamento.pedido);
-    
-        expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
-        expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
+    describe("Cenário: Tentar cancelar um pagamento não encontrado", () => {
+        it("DADO um pagamento inexistente, QUANDO eu tentar cancelá-lo, ENTÃO deve lançar um erro dizendo 'Pagamento não encontrado'", async () => {
+            const mockPagamento: Pagamento = pagamento;
+            mockPagamento.status = StatusPagamento.CANCELADO;
+
+            mockPagamentoGateway.atualizarPagamento.mockResolvedValue(mockPagamento);
+
+            await expect(executarPagamentoUseCase.cancelar(pagamento.pedido))
+                .rejects
+                .toThrow('Pagamento não encontrado');
+
+            expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
+            expect(mockPagamentoGateway.atualizarPagamento).not.toHaveBeenCalled();
+        });
     });
 
-    it('deve consultar um pedido no integrador com sucesso', async () => {
-        const mockPedidoId = '1234567897895464546';
-    
-        let mockPagamento: Pagamento = pagamento;
-        mockPagamento.identificadorPedido = mockPedidoId;
-    
-        mockPagamentoGateway.buscarPagamentoPeloIntegrador.mockResolvedValue(mockPagamento);
-    
-        const resultado = await executarPagamentoUseCase.consultaPedidoIntegrador(mockPedidoId);
-    
-        expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
-        expect(resultado.identificadorPedido).toBe(mockPedidoId);
-        expect(mockPagamentoGateway.buscarPagamentoPeloIntegrador).toHaveBeenCalledWith(mockPedidoId);
+    describe("Cenário: Consultar o status de um pagamento com sucesso", () => {
+        it("DADO um pagamento existente, QUANDO eu consultar o status do pagamento, ENTÃO o status atual deve ser retornado com sucesso", async () => {
+            const mockPagamento: Pagamento = pagamento;
+            mockPagamento.status = StatusPagamento.AGUARDANDO_RESPOSTA;
+
+            mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
+
+            const resultado = await executarPagamentoUseCase.consultaStatus(pagamento.pedido);
+
+            expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
+            expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(pagamento.pedido);
+        });
+    });
+
+    describe("Cenário: Consultar um pedido no integrador com sucesso", () => {
+        it("DADO um identificador de pedido válido, QUANDO eu consultar o pedido no integrador, ENTÃO os dados do pagamento devem ser retornados com sucesso", async () => {
+            const mockPedidoId = '1234567897895464546';
+
+            let mockPagamento: Pagamento = pagamento;
+            mockPagamento.identificadorPedido = mockPedidoId;
+
+            mockPagamentoGateway.buscarPagamentoPeloIntegrador.mockResolvedValue(mockPagamento);
+
+            const resultado = await executarPagamentoUseCase.consultaPedidoIntegrador(mockPedidoId);
+
+            expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
+            expect(resultado.identificadorPedido).toBe(mockPedidoId);
+            expect(mockPagamentoGateway.buscarPagamentoPeloIntegrador).toHaveBeenCalledWith(mockPedidoId);
+        });
     });
 });
