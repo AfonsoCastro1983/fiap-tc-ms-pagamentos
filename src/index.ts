@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 const PORT = process.env.PORT || 8000;
 
 const app: Application = express();
+app.disable("x-powered-by");
 
 AppDataSource.initialize().then(async () => {
     console.log('Banco conectado');
