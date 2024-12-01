@@ -163,7 +163,7 @@ describe('Gateway de pagamentos', () => {
                 data: new Date(),
                 status: 'ENVIAR_PARA_PAGAMENTO',
                 cliente: { id: 1, nome: 'Cliente Teste', email: 'teste@email.com', cpf: '12345678900' },
-                valorTotal: new Preco(100),
+                valorTotal: 100,
                 itens: [],
             };
 

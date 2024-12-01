@@ -61,7 +61,7 @@ export class PagamentoGateway implements IPagamentoGateway {
         let rep = new PagamentoRepository();
         rep.pedido = pedido.id;
         rep.status = StatusPagamento.AGUARDANDO_RESPOSTA;
-        rep.valor = pedido.valorTotal.valor;
+        rep.valor = pedido.valorTotal;
         rep.identificador_pedido = "";
         rep.qrcode = "";
         console.log('Pagamento a cadastrar');

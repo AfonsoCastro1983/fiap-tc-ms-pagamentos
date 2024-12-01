@@ -3,8 +3,6 @@ import { MercadoPagoService } from "../src/infra/mercadopago/MercadoPagoService"
 import axios from "axios";
 import { Request } from "express";
 import { IPedido } from "../src/application/interfaces/IPedido";
-import { Preco } from "../src/shared/valueobjects/Preco";
-import { Quantidade } from "../src/shared/valueobjects/Quantidade";
 
 jest.mock("axios");
 const mockAxios = axios as jest.Mocked<typeof axios>;
@@ -40,18 +38,19 @@ describe("MercadoPagoService", () => {
                     email: "teste@email.com",
                     cpf: "12345678900",
                 },
-                valorTotal: new Preco(100),
+                valorTotal: 100,
                 itens: [
                     {
                         item: {
                             id: 1,
                             nome: "Produto Teste",
                             descricao: "Descrição Teste",
+                            ingredientes: "Ingredientes do produto",
                             categoria: "Categoria Teste",
-                            preco: new Preco(100),
+                            preco: 100,
                         },
-                        quantidade: new Quantidade(1),
-                        total: new Preco(100),
+                        quantidade: 1,
+                        total: 100,
                     },
                 ],
             };
@@ -91,7 +90,7 @@ describe("MercadoPagoService", () => {
                     email: "teste@email.com",
                     cpf: "12345678900",
                 },
-                valorTotal: new Preco(100),
+                valorTotal: 100,
                 itens: [],
             };
 

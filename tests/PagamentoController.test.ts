@@ -5,7 +5,6 @@ import { IIntegradorPagamentoGateway } from '../src/application/interfaces/IInte
 import { StatusPagamento } from '../src/shared/enums/StatusPagamento';
 import { IPedido } from '../src/application/interfaces/IPedido';
 import { Preco } from '../src/shared/valueobjects/Preco';
-import { Quantidade } from '../src/shared/valueobjects/Quantidade';
 import { ExecutarPagamentoUseCase } from '../src/application/usecases/ExecutarPagamentoUseCase';
 import { Pagamento } from '../src/domain/entities/Pagamento';
 import { ITransacaoMercadoPago } from '../src/infra/mercadopago/MercadoPagoService'
@@ -22,18 +21,19 @@ const pedido: IPedido = {
         email: "email@teste.com",
         cpf: "58787826003"
     },
-    valorTotal: new Preco(10),
+    valorTotal: 10,
     itens: [
         {
             item: {
                 id: 14,
                 nome: "Teste Produto",
                 descricao: "Teste de Produto",
+                ingredientes: "Ingredientes do produto",
                 categoria: "Lanche",
-                preco: new Preco(10)
+                preco: 10
             },
-            quantidade: new Quantidade(1),
-            total: new Preco(10)
+            quantidade: 1,
+            total: 10
         }
     ],
 };

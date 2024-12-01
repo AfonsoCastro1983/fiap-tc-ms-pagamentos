@@ -28,24 +28,18 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"Preco": {
-				"properties": {},
-				"type": "object",
-				"additionalProperties": true
-			},
-			"Quantidade": {
-				"properties": {},
-				"type": "object",
-				"additionalProperties": true
-			},
 			"IPedidoItem": {
 				"properties": {
 					"item": {
 						"properties": {
 							"preco": {
-								"$ref": "#/components/schemas/Preco"
+								"type": "number",
+								"format": "double"
 							},
 							"categoria": {
+								"type": "string"
+							},
+							"ingredientes": {
 								"type": "string"
 							},
 							"descricao": {
@@ -62,6 +56,7 @@
 						"required": [
 							"preco",
 							"categoria",
+							"ingredientes",
 							"descricao",
 							"nome",
 							"id"
@@ -69,10 +64,12 @@
 						"type": "object"
 					},
 					"quantidade": {
-						"$ref": "#/components/schemas/Quantidade"
+						"type": "number",
+						"format": "double"
 					},
 					"total": {
-						"$ref": "#/components/schemas/Preco"
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
@@ -120,7 +117,8 @@
 						"type": "object"
 					},
 					"valorTotal": {
-						"$ref": "#/components/schemas/Preco"
+						"type": "number",
+						"format": "double"
 					},
 					"itens": {
 						"items": {
