@@ -11,7 +11,7 @@ export interface IPedido {
         email: string;
         cpf: string;
     },
-    valorTotal: Preco;
+    valorTotal: number;
     itens: IPedidoItem[];
 }
 
@@ -20,9 +20,10 @@ export interface IPedidoItem {
         id: number;
         nome: string;
         descricao: string;
+        ingredientes: string;
         categoria: string;
-        preco: Preco;
+        preco: number;
     },
-    quantidade: Quantidade;
-    total: Preco;
+    quantidade: number;
+    total: number;
 }

@@ -82,14 +82,14 @@ export class MercadoPagoService implements IIntegradorPagamentoGateway {
                 category: item.item.categoria,
                 title: item.item.nome,
                 description: item.item.descricao,
-                unit_price: Number(item.item.preco.valor),
+                unit_price: Number(item.item.preco),
                 unit_measure: "UNIDADE",
-                quantity: item.quantidade.valor,
-                total_amount: item.total.valor
+                quantity: item.quantidade,
+                total_amount: item.total
             })),
             notification_url: this._URLCallback,
             title: "Lanchonete TechChallenge",
-            total_amount: pedido.valorTotal.valor
+            total_amount: pedido.valorTotal
         }
         return JSON.stringify(payload)
     }
