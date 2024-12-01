@@ -11,11 +11,12 @@ export class FilaSQS implements IEnvioFilaMensageria{
     }
 
     public async envioFila(pedido: string, status: StatusPedido): Promise<boolean> {
+        let id = uuidv4();
         const params = {
             QueueUrl: 'https://sqs.us-east-2.amazonaws.com/992382363343/lanchonete-fiap-status-pedido.fifo',
             MessageBody: JSON.stringify({'pedido': pedido, 'status': status}),
-            MessageGroupId: uuidv4(),
-            MessageDeduplicationId: "pd"+pedido.toString()
+            MessageGroupId: id,
+            MessageDeduplicationId: "pd"+id
         };
 
         console.log(params);
