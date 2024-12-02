@@ -127,9 +127,13 @@ export class MercadoPagoService implements IIntegradorPagamentoGateway {
             if (retorno_webhook.resource != "") {
                 const resposta_mp = await axios.get(retorno_webhook.resource, { headers });
                 const transacao: ITransacaoMercadoPago = resposta_mp.data;
-                console.log(transacao.id, transacao.status, transacao.order_status);
+                console.log(transacao.external_reference, transacao.status, transacao.order_status);
+                let pedido = '';
+                if (transacao.external_reference.startsWith('Pedido')) {
+                    pedido = transacao.external_reference.split(':')[1];
+                }
                 return {
-                    id_pagamento: transacao.id.toString(),
+                    pedido: pedido,
                     status: transacao.status,
                     pago: transacao.order_status == "paid"
                 }
@@ -140,7 +144,7 @@ export class MercadoPagoService implements IIntegradorPagamentoGateway {
         }
         catch (erro) {
             return {
-                id_pagamento: "",
+                pedido: "",
                 status: "",
                 pago: false
             }

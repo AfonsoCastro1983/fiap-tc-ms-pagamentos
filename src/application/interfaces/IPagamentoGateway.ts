@@ -5,5 +5,4 @@ export interface IPagamentoGateway {
     iniciarPagamento(pedido: IPedido): Promise<Pagamento>;
     atualizarPagamento(pagamento: Pagamento): Promise<Pagamento>;
     buscarPagamento(pedido: string): Promise<Pagamento>;
-    buscarPagamentoPeloIntegrador(codigo: string): Promise<Pagamento>;
 }

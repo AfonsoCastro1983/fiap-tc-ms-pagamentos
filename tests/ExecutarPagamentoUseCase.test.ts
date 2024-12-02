@@ -199,13 +199,13 @@ describe('Executar pagamentos', () => {
             let mockPagamento: Pagamento = pagamento;
             mockPagamento.identificadorPedido = mockPedidoId;
 
-            mockPagamentoGateway.buscarPagamentoPeloIntegrador.mockResolvedValue(mockPagamento);
+            mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
 
-            const resultado = await executarPagamentoUseCase.consultaPedidoIntegrador(mockPedidoId);
+            const resultado = await executarPagamentoUseCase.consultaStatus(mockPedidoId);
 
             expect(resultado).toHaveProperty('status', StatusPagamento.AGUARDANDO_RESPOSTA);
             expect(resultado.identificadorPedido).toBe(mockPedidoId);
-            expect(mockPagamentoGateway.buscarPagamentoPeloIntegrador).toHaveBeenCalledWith(mockPedidoId);
+            expect(mockPagamentoGateway.buscarPagamento).toHaveBeenCalledWith(mockPedidoId);
         });
     });
 });

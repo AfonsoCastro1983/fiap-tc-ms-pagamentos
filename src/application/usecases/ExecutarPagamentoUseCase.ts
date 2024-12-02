@@ -74,9 +74,4 @@ export class ExecutarPagamentoUseCase {
         const pagamento = await this.pagamentoGateway.buscarPagamento(nro_pedido);
         return pagamento;
     }
-
-    async consultaPedidoIntegrador(id: string): Promise<Pagamento> {
-        const pagamento = await this.pagamentoGateway.buscarPagamentoPeloIntegrador(id);
-        return pagamento;
-    }
 }

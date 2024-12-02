@@ -156,7 +156,7 @@ describe('Controller de Pagamentos', () => {
         it("DADO uma operação aprovada pelo integrador, QUANDO eu receber a resposta, ENTÃO deve processar o status como pagamento aprovado", async () => {
             const mock_payload_webhook = JSON.stringify({ resource: 'www.mercadopago.com.br/gettopic', topic: 'topic123' });
             const mock_resposta_tratamento = {
-                id_pagamento: mockQRCodeResponse.identificador_pedido,
+                pedido: mockQRCodeResponse.identificador_pedido,
                 status: 'closed',
                 pago: true
             };
@@ -166,8 +166,8 @@ describe('Controller de Pagamentos', () => {
 
             mockIntegradorPagamentos.tratarRetorno.mockResolvedValue(mock_resposta_tratamento);
             mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
-            mockPagamentoGateway.buscarPagamentoPeloIntegrador.mockResolvedValue(mockPagamento);
-            mockExecutarPagamentoUseCase.consultaPedidoIntegrador.mockResolvedValue(mockPagamento);
+            mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
+            mockExecutarPagamentoUseCase.consultaStatus.mockResolvedValue(mockPagamento);
 
             const resultado = await pagamentoController.receberStatusPagamentoIntegrador(mock_payload_webhook);
 
@@ -179,7 +179,7 @@ describe('Controller de Pagamentos', () => {
         it("DADO uma operação rejeitada pelo integrador, QUANDO eu receber a resposta, ENTÃO deve processar o status como pagamento rejeitado", async () => {
             const mock_payload_webhook = JSON.stringify({ resource: 'www.mercadopago.com.br/gettopic', topic: 'topic123' });
             const mock_resposta_tratamento = {
-                id_pagamento: mockQRCodeResponse.identificador_pedido,
+                pedido: mockQRCodeResponse.identificador_pedido,
                 status: 'closed',
                 pago: false
             };
@@ -188,9 +188,9 @@ describe('Controller de Pagamentos', () => {
             mockPagamento.qrCode = mockQRCodeResponse.qrcode;
 
             mockIntegradorPagamentos.tratarRetorno.mockResolvedValue(mock_resposta_tratamento);
-            mockExecutarPagamentoUseCase.consultaPedidoIntegrador.mockResolvedValue(mockPagamento);
+            mockExecutarPagamentoUseCase.consultaStatus.mockResolvedValue(mockPagamento);
             mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
-            mockPagamentoGateway.buscarPagamentoPeloIntegrador.mockResolvedValue(mockPagamento);
+            mockPagamentoGateway.buscarPagamento.mockResolvedValue(mockPagamento);
 
             const resultado = await pagamentoController.receberStatusPagamentoIntegrador(mock_payload_webhook);
 
