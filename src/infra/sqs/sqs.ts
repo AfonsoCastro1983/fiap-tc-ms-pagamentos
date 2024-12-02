@@ -2,28 +2,13 @@ import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
 import { IEnvioFilaMensageria } from "../../application/interfaces/IEnvioFilaMensageria";
 import { StatusPedido } from "../../shared/enums/StatusPedido";
 import { v4 as uuidv4 } from 'uuid';
-import dotenv from "dotenv";
 
 export class FilaSQS implements IEnvioFilaMensageria{
     private _sqsClient: SQSClient;
     
     constructor () {
-        dotenv.config();
-
-        let aws_ski: string = "";
-        let aws_sak: string = "";
-        if (process.env.AWS_ACCESS_KEY_ID) {
-            aws_ski = process.env.AWS_ACCESS_KEY_ID;
-        }
-        if (process.env.AWS_SECRET_ACCESS_KEY) {
-            aws_sak = process.env.AWS_SECRET_ACCESS_KEY;
-        }
         this._sqsClient = new SQSClient({
-            region: "us-east-2",
-            credentials: {
-                accessKeyId: aws_ski,
-                secretAccessKey: aws_sak
-            }
+            region: "us-east-2"
         });
         
     }
