@@ -13,11 +13,15 @@ export class FilaSQS implements IEnvioFilaMensageria{
         
     }
 
+    private getEnumKeyByValue(enumObj: any, value: string): string | undefined {
+        return Object.keys(enumObj).find(key => enumObj[key] === value);
+    }
+
     public async envioFila(pedido: string, status: StatusPedido): Promise<boolean> {
         let id = uuidv4();
         const params = {
             QueueUrl: 'https://sqs.us-east-2.amazonaws.com/992382363343/lanchonete-fiap-status-pedido.fifo',
-            MessageBody: JSON.stringify({'pedido': pedido, 'status': status.toString()}),
+            MessageBody: JSON.stringify({'pedido': pedido, 'status': this.getEnumKeyByValue(StatusPedido,status)}),
             MessageGroupId: id,
             MessageDeduplicationId: "pd"+id
         };
