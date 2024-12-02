@@ -1,50 +1,50 @@
 <testExecutions version="1">
 <file path="tests/Preco.test.ts">
-<testCase name="Preco Quando o objeto &#xe9; criado Deve lan&#xe7;ar um erro se o valor inicial for negativo" duration="19" />
-<testCase name="Preco Quando o objeto &#xe9; criado Deve criar o objeto corretamente se o valor inicial for positivo" duration="0" />
-<testCase name="Preco Quando somar dois pre&#xe7;os Deve retornar um novo objeto com a soma dos valores" duration="0" />
+<testCase name="Preco Quando o objeto &#xe9; criado Deve lan&#xe7;ar um erro se o valor inicial for negativo" duration="21" />
+<testCase name="Preco Quando o objeto &#xe9; criado Deve criar o objeto corretamente se o valor inicial for positivo" duration="1" />
+<testCase name="Preco Quando somar dois pre&#xe7;os Deve retornar um novo objeto com a soma dos valores" duration="1" />
 <testCase name="Preco Quando subtrair dois pre&#xe7;os Deve retornar um novo objeto com o valor restante" duration="1" />
 <testCase name="Preco Quando subtrair dois pre&#xe7;os Deve lan&#xe7;ar um erro se o valor a subtrair for maior que o atual" duration="2" />
-<testCase name="Preco Quando chamar o m&#xe9;todo toString Deve retornar uma string formatada corretamente" duration="0" />
+<testCase name="Preco Quando chamar o m&#xe9;todo toString Deve retornar uma string formatada corretamente" duration="1" />
 </file>
 <file path="tests/Quantidade.test.ts">
-<testCase name="Quantidade deve criar uma inst&#xe2;ncia de Quantidade com valor v&#xe1;lido" duration="6" />
-<testCase name="Quantidade deve lan&#xe7;ar erro ao tentar criar uma Quantidade com valor menor ou igual a zero" duration="10" />
+<testCase name="Quantidade deve criar uma inst&#xe2;ncia de Quantidade com valor v&#xe1;lido" duration="14" />
+<testCase name="Quantidade deve lan&#xe7;ar erro ao tentar criar uma Quantidade com valor menor ou igual a zero" duration="16" />
 <testCase name="Quantidade deve alterar a quantidade para um valor v&#xe1;lido" duration="1" />
 <testCase name="Quantidade deve lan&#xe7;ar erro ao tentar alterar a quantidade para um valor menor ou igual a zero" duration="2" />
-<testCase name="Quantidade deve retornar o valor correto da quantidade" duration="1" />
+<testCase name="Quantidade deve retornar o valor correto da quantidade" duration="0" />
 </file>
 <file path="tests/ExecutarPagamentoUseCase.test.ts">
-<testCase name="Executar pagamentos Cen&#xe1;rio: Iniciar um pagamento com sucesso DADO um pedido v&#xe1;lido, QUANDO eu iniciar o pagamento, ENT&#xc3;O o pagamento deve ser iniciado com sucesso e retornar o QR Code" duration="33" />
-<testCase name="Executar pagamentos Cen&#xe1;rio: Iniciar um pagamento e n&#xe3;o conseguir gerar o QR Code DADO um pedido v&#xe1;lido, QUANDO eu tentar iniciar o pagamento e falhar ao gerar o QR Code, ENT&#xc3;O o pagamento deve ser cancelado" duration="5" />
-<testCase name="Executar pagamentos Cen&#xe1;rio: Marcar um pagamento como pago com sucesso DADO um pagamento em processamento, QUANDO eu confirm&#xe1;-lo como pago, ENT&#xc3;O o status do pagamento deve ser atualizado para PAGO" duration="3" />
-<testCase name="Executar pagamentos Cen&#xe1;rio: Tentar efetivar um pagamento n&#xe3;o encontrado DADO um pagamento inexistente, QUANDO eu tentar confirm&#xe1;-lo como pago, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="13" />
-<testCase name="Executar pagamentos Cen&#xe1;rio: Cancelar um pagamento com sucesso DADO um pagamento em processamento, QUANDO eu cancelar o pagamento, ENT&#xc3;O o status do pagamento deve ser atualizado para CANCELADO" duration="7" />
-<testCase name="Executar pagamentos Cen&#xe1;rio: Tentar cancelar um pagamento n&#xe3;o encontrado DADO um pagamento inexistente, QUANDO eu tentar cancel&#xe1;-lo, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="4" />
-<testCase name="Executar pagamentos Cen&#xe1;rio: Consultar o status de um pagamento com sucesso DADO um pagamento existente, QUANDO eu consultar o status do pagamento, ENT&#xc3;O o status atual deve ser retornado com sucesso" duration="3" />
+<testCase name="Executar pagamentos Cen&#xe1;rio: Iniciar um pagamento com sucesso DADO um pedido v&#xe1;lido, QUANDO eu iniciar o pagamento, ENT&#xc3;O o pagamento deve ser iniciado com sucesso e retornar o QR Code" duration="35" />
+<testCase name="Executar pagamentos Cen&#xe1;rio: Iniciar um pagamento e n&#xe3;o conseguir gerar o QR Code DADO um pedido v&#xe1;lido, QUANDO eu tentar iniciar o pagamento e falhar ao gerar o QR Code, ENT&#xc3;O o pagamento deve ser cancelado" duration="7" />
+<testCase name="Executar pagamentos Cen&#xe1;rio: Marcar um pagamento como pago com sucesso DADO um pagamento em processamento, QUANDO eu confirm&#xe1;-lo como pago, ENT&#xc3;O o status do pagamento deve ser atualizado para PAGO" duration="1" />
+<testCase name="Executar pagamentos Cen&#xe1;rio: Tentar efetivar um pagamento n&#xe3;o encontrado DADO um pagamento inexistente, QUANDO eu tentar confirm&#xe1;-lo como pago, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="14" />
+<testCase name="Executar pagamentos Cen&#xe1;rio: Cancelar um pagamento com sucesso DADO um pagamento em processamento, QUANDO eu cancelar o pagamento, ENT&#xc3;O o status do pagamento deve ser atualizado para CANCELADO" duration="3" />
+<testCase name="Executar pagamentos Cen&#xe1;rio: Tentar cancelar um pagamento n&#xe3;o encontrado DADO um pagamento inexistente, QUANDO eu tentar cancel&#xe1;-lo, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="2" />
+<testCase name="Executar pagamentos Cen&#xe1;rio: Consultar o status de um pagamento com sucesso DADO um pagamento existente, QUANDO eu consultar o status do pagamento, ENT&#xc3;O o status atual deve ser retornado com sucesso" duration="1" />
 <testCase name="Executar pagamentos Cen&#xe1;rio: Consultar um pedido no integrador com sucesso DADO um identificador de pedido v&#xe1;lido, QUANDO eu consultar o pedido no integrador, ENT&#xc3;O os dados do pagamento devem ser retornados com sucesso" duration="2" />
 </file>
 <file path="tests/MercadoPagoService.test.ts">
-<testCase name="MercadoPagoService gerarQRCode deve gerar um QR Code com sucesso" duration="37" />
-<testCase name="MercadoPagoService gerarQRCode deve lan&#xe7;ar erro ao falhar na gera&#xe7;&#xe3;o do QR Code" duration="23" />
-<testCase name="MercadoPagoService tratarRetorno deve processar o retorno do webhook com sucesso" duration="4" />
-<testCase name="MercadoPagoService tratarRetorno deve retornar valores padr&#xe3;o ao falhar no processamento do webhook" duration="4" />
-<testCase name="MercadoPagoService tratarRetorno deve lan&#xe7;ar erro ao retornar resposta n&#xe3;o mapeada" duration="9" />
+<testCase name="MercadoPagoService gerarQRCode deve gerar um QR Code com sucesso" duration="45" />
+<testCase name="MercadoPagoService gerarQRCode deve lan&#xe7;ar erro ao falhar na gera&#xe7;&#xe3;o do QR Code" duration="16" />
+<testCase name="MercadoPagoService tratarRetorno deve processar o retorno do webhook com sucesso" duration="2" />
+<testCase name="MercadoPagoService tratarRetorno deve retornar valores padr&#xe3;o ao falhar no processamento do webhook" duration="2" />
+<testCase name="MercadoPagoService tratarRetorno deve lan&#xe7;ar erro ao retornar resposta n&#xe3;o mapeada" duration="2" />
 </file>
 <file path="tests/PagamentoGateway.test.ts">
-<testCase name="Gateway de pagamentos Cen&#xe1;rio: Buscar um pagamento com sucesso DADO um identificador de pedido v&#xe1;lido, QUANDO eu buscar o pagamento, ENT&#xc3;O o pagamento deve ser retornado com sucesso" duration="13" />
-<testCase name="Gateway de pagamentos Cen&#xe1;rio: Lan&#xe7;ar erro se pagamento n&#xe3;o for encontrado DADO um identificador de pedido inv&#xe1;lido, QUANDO eu buscar o pagamento, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="6" />
+<testCase name="Gateway de pagamentos Cen&#xe1;rio: Buscar um pagamento com sucesso DADO um identificador de pedido v&#xe1;lido, QUANDO eu buscar o pagamento, ENT&#xc3;O o pagamento deve ser retornado com sucesso" duration="17" />
+<testCase name="Gateway de pagamentos Cen&#xe1;rio: Lan&#xe7;ar erro se pagamento n&#xe3;o for encontrado DADO um identificador de pedido inv&#xe1;lido, QUANDO eu buscar o pagamento, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="7" />
 <testCase name="Gateway de pagamentos Cen&#xe1;rio: Atualizar um pagamento com sucesso DADO um pagamento existente, QUANDO eu atualizar suas informa&#xe7;&#xf5;es, ENT&#xc3;O o pagamento deve ser atualizado com sucesso" duration="2" />
 <testCase name="Gateway de pagamentos Cen&#xe1;rio: Lan&#xe7;ar erro ao atualizar um pagamento n&#xe3;o encontrado DADO um pagamento inexistente, QUANDO eu tentar atualiz&#xe1;-lo, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="1" />
-<testCase name="Gateway de pagamentos Cen&#xe1;rio: Lan&#xe7;ar erro ao tentar atualizar um pagamento sem ID preenchido DADO um pagamento sem ID preenchido, QUANDO eu tentar atualiz&#xe1;-lo, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o gravado&apos;" duration="5" />
-<testCase name="Gateway de pagamentos Cen&#xe1;rio: Buscar um pagamento pelo integrador com sucesso DADO um identificador do integrador v&#xe1;lido, QUANDO eu buscar o pagamento, ENT&#xc3;O o pagamento deve ser retornado com sucesso" duration="2" />
+<testCase name="Gateway de pagamentos Cen&#xe1;rio: Lan&#xe7;ar erro ao tentar atualizar um pagamento sem ID preenchido DADO um pagamento sem ID preenchido, QUANDO eu tentar atualiz&#xe1;-lo, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o gravado&apos;" duration="6" />
+<testCase name="Gateway de pagamentos Cen&#xe1;rio: Buscar um pagamento pelo integrador com sucesso DADO um identificador do integrador v&#xe1;lido, QUANDO eu buscar o pagamento, ENT&#xc3;O o pagamento deve ser retornado com sucesso" duration="1" />
 <testCase name="Gateway de pagamentos Cen&#xe1;rio: Lan&#xe7;ar erro se c&#xf3;digo de integrador n&#xe3;o for encontrado DADO um identificador do integrador inv&#xe1;lido, QUANDO eu buscar o pagamento, ENT&#xc3;O deve lan&#xe7;ar um erro dizendo &apos;Pagamento n&#xe3;o encontrado&apos;" duration="1" />
-<testCase name="Gateway de pagamentos Cen&#xe1;rio: Iniciar um pagamento com sucesso DADO um pedido v&#xe1;lido, QUANDO eu iniciar o pagamento, ENT&#xc3;O o pagamento deve ser criado com status &apos;Aguardando Resposta&apos;" duration="5" />
+<testCase name="Gateway de pagamentos Cen&#xe1;rio: Iniciar um pagamento com sucesso DADO um pedido v&#xe1;lido, QUANDO eu iniciar o pagamento, ENT&#xc3;O o pagamento deve ser criado com status &apos;Aguardando Resposta&apos;" duration="4" />
 </file>
 <file path="tests/PagamentoController.test.ts">
-<testCase name="Controller de Pagamentos Cen&#xe1;rio: Criar um pagamento com sucesso DADO um pedido v&#xe1;lido, QUANDO eu iniciar o pagamento, ENT&#xc3;O o pagamento deve ser criado com sucesso e retornar o QR Code" duration="12" />
+<testCase name="Controller de Pagamentos Cen&#xe1;rio: Criar um pagamento com sucesso DADO um pedido v&#xe1;lido, QUANDO eu iniciar o pagamento, ENT&#xc3;O o pagamento deve ser criado com sucesso e retornar o QR Code" duration="16" />
 <testCase name="Controller de Pagamentos Cen&#xe1;rio: Consultar o status de um pagamento com sucesso DADO um pagamento existente, QUANDO eu consultar o status do pagamento, ENT&#xc3;O o status atual deve ser retornado com sucesso" duration="1" />
-<testCase name="Controller de Pagamentos Cen&#xe1;rio: Receber resposta de um integrador aprovando a opera&#xe7;&#xe3;o DADO uma opera&#xe7;&#xe3;o aprovada pelo integrador, QUANDO eu receber a resposta, ENT&#xc3;O deve processar o status como pagamento aprovado" duration="9" />
+<testCase name="Controller de Pagamentos Cen&#xe1;rio: Receber resposta de um integrador aprovando a opera&#xe7;&#xe3;o DADO uma opera&#xe7;&#xe3;o aprovada pelo integrador, QUANDO eu receber a resposta, ENT&#xc3;O deve processar o status como pagamento aprovado" duration="2" />
 <testCase name="Controller de Pagamentos Cen&#xe1;rio: Receber resposta de um integrador rejeitando a opera&#xe7;&#xe3;o DADO uma opera&#xe7;&#xe3;o rejeitada pelo integrador, QUANDO eu receber a resposta, ENT&#xc3;O deve processar o status como pagamento rejeitado" duration="1" />
 </file>
 <file path="tests/SQS.test.ts">
