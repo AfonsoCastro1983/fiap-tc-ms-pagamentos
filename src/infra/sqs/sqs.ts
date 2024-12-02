@@ -14,7 +14,9 @@ export class FilaSQS implements IEnvioFilaMensageria{
     }
 
     private getEnumKeyByValue(enumObj: any, value: string): string | undefined {
-        return Object.keys(enumObj).find(key => enumObj[key] === value);
+        const val = Object.keys(enumObj).find(key => enumObj[key] === value)
+        console.log('getEnumKeyByValue:',value,'->',val);
+        return val;
     }
 
     public async envioFila(pedido: string, status: StatusPedido): Promise<boolean> {
