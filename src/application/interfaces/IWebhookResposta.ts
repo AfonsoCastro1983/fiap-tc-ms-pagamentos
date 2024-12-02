@@ -1,5 +1,5 @@
 export interface IWebhookResposta {
-    id_pagamento: string;
+    pedido: string;
     status: string;
     pago: boolean;
 }

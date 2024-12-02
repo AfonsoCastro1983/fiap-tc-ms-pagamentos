@@ -63,7 +63,7 @@ export default class PagamentoController {
             console.log('respostaIntegrador ->', respostaIntegrador);
             if (respostaIntegrador) {
                 if (respostaIntegrador.status == "closed") {
-                    const pagto = await this.pagamentoUseCase.consultaPedidoIntegrador(respostaIntegrador.id_pagamento);
+                    const pagto = await this.pagamentoUseCase.consultaStatus(respostaIntegrador.pedido);
                     console.log('Pagamento encontrado?', pagto);
                     if (pagto) {
                         if (respostaIntegrador.pago) {

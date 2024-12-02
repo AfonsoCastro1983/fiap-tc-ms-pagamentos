@@ -1,6 +1,7 @@
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
 import { FilaSQS as FilaSQS } from '../src/infra/sqs/sqs';
 import { StatusPedido } from "../src/shared/enums/StatusPedido";
+import dotenv from "dotenv";
 
 jest.mock("@aws-sdk/client-sqs");
 
@@ -44,6 +45,12 @@ describe("filaSQS", () => {
 
     it("deve instanciar corretamente o cliente SQS", () => {
         expect(filaSQSInstance).toHaveProperty("_sqsClient");
-        expect(SQSClient).toHaveBeenCalledWith({ region: "us-east-2" });
+        expect(SQSClient).toHaveBeenCalledWith({
+            region: "us-east-2",
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            }
+        });
     });
 });

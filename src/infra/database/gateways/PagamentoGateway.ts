@@ -31,15 +31,6 @@ export class PagamentoGateway implements IPagamentoGateway {
         return this.converterRepository(pagRepository);
     }
 
-    async buscarPagamentoPeloIntegrador(codigo: string): Promise<Pagamento> {
-        //Registro do integrador existe?
-        const pagRepository = await this.repPagamento.findOne({ where: { identificador_pedido: codigo } });
-        if (!pagRepository) {
-            throw new Error('Pedido integrador não encontrado');
-        }
-        return this.converterRepository(pagRepository);
-    }
-
     async atualizarPagamento(pagamento: Pagamento): Promise<Pagamento> {
         if (pagamento.id == 0) {
             throw new Error('Pagamento não gravado');

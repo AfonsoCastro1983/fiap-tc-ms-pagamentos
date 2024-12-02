@@ -137,22 +137,22 @@ describe('Gateway de pagamentos', () => {
 
             mockRepository.findOne.mockResolvedValue(mockPagamentoRepository);
 
-            const resultado = await pagamentoGateway.buscarPagamentoPeloIntegrador('123ABC');
+            const resultado = await pagamentoGateway.buscarPagamento('123');
 
             expect(mockRepository.findOne).toHaveBeenCalledWith({
-                where: { identificador_pedido: '123ABC' }
+                where: { pedido: '123' }, order: { id: 'DESC' }
             });
             expect(resultado).toBeInstanceOf(Pagamento);
             expect(resultado.id).toBe(1);
-            expect(resultado.identificadorPedido).toBe('123ABC');
+            expect(resultado.pedido).toBe('123');
         });
     });
 
     describe("Cenário: Lançar erro se código de integrador não for encontrado", () => {
-        it("DADO um identificador do integrador inválido, QUANDO eu buscar o pagamento, ENTÃO deve lançar um erro dizendo 'Pedido integrador não encontrado'", async () => {
+        it("DADO um identificador do integrador inválido, QUANDO eu buscar o pagamento, ENTÃO deve lançar um erro dizendo 'Pagamento não encontrado'", async () => {
             mockRepository.findOne.mockResolvedValue(null);
 
-            await expect(pagamentoGateway.buscarPagamentoPeloIntegrador('123ABC')).rejects.toThrow('Pedido integrador não encontrado');
+            await expect(pagamentoGateway.buscarPagamento('123ABC')).rejects.toThrow('Pagamento não encontrado');
         });
     });
 

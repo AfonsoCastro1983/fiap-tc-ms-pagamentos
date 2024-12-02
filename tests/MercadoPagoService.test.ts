@@ -111,7 +111,7 @@ describe("MercadoPagoService", () => {
 
             const mockResponse = {
                 data: {
-                    id: 12345,
+                    external_reference: 'Pedido:12345',
                     status: "approved",
                     order_status: "paid",
                 },
@@ -128,7 +128,7 @@ describe("MercadoPagoService", () => {
                 })
             );
             expect(resultado).toEqual({
-                id_pagamento: "12345",
+                pedido: "12345",
                 status: "approved",
                 pago: true,
             });
@@ -143,7 +143,7 @@ describe("MercadoPagoService", () => {
             const resultado = await mercadoPagoService.tratarRetorno(body);
 
             expect(resultado).toEqual({
-                id_pagamento: "",
+                pedido: "",
                 status: "",
                 pago: false,
             });
@@ -160,7 +160,7 @@ describe("MercadoPagoService", () => {
             const resultado = await mercadoPagoService.tratarRetorno(body);
 
             expect(resultado).toEqual({
-                id_pagamento: "",
+                pedido: "",
                 status: "",
                 pago: false,
             });
